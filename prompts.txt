@@ -1,0 +1,143 @@
+Coordination Detection Pipeline
+AI-Assisted Development Log
+
+AI tool used:
+- ChatGPT (GPT-5.5)
+- Codex (VS Code)
+
+AI was used as an implementation assistant, design reviewer and debugging aid. All code, outputs and intermediate results were manually reviewed and validated before being incorporated into the final pipeline.
+
+====================================================================
+
+1. Initial pipeline design
+
+Prompt:
+"Help design a coordination detection pipeline for identifying coordinated groups from Twitter snapshot data without using supervised learning."
+
+Outcome:
+Designed a multi-stage pipeline consisting of:
+- Candidate generation
+- Feature engineering
+- Pair scoring
+- Graph construction
+- Community detection
+- Community scoring
+- Organic crowd filtering
+- Final output
+
+Decision:
+Adopted a multi-signal approach instead of relying on a single clustering technique.
+
+====================================================================
+
+2. Candidate generation
+
+Prompt:
+"Implement candidate generation using interaction keys and semantic neighbours while avoiding O(n²) comparisons."
+
+Outcome:
+Implemented candidate generation using:
+- thread_id
+- reply_to_post_id
+- quoted_post_id
+- shared mentions
+- rare URLs
+- FAISS semantic neighbours
+
+Decision:
+Introduced mention-frequency thresholding to remove extremely common targets that generated excessive candidate pairs.
+
+====================================================================
+
+3. Feature engineering
+
+Prompt:
+"Suggest behavioural features useful for coordination detection while avoiding redundant handcrafted features."
+
+Outcome:
+Implemented:
+- semantic similarity
+- temporal proximity
+- interaction overlap
+- rarity features
+- repeated behaviour
+- higher-order agreement features
+
+Decision:
+Removed several initially proposed handcrafted temporal features after concluding they added little additional information.
+
+====================================================================
+
+4. Community scoring
+
+Prompt:
+"Design a scoring function combining behavioural evidence without supervised labels."
+
+Outcome:
+Implemented evidence fusion over semantic, temporal, interaction, repeated-behaviour and structural features.
+
+====================================================================
+
+5. Organic crowd filtering
+
+Prompt:
+"Suggest methods to distinguish coordinated campaigns from organic crowds."
+
+Outcome:
+Implemented structural penalties based on:
+- graph density
+- average edge weight
+- community size
+- evidence diversity
+
+====================================================================
+
+6. Debugging
+
+AI was regularly used to:
+- explain unexpected outputs
+- identify implementation bugs
+- review pipeline consistency
+- suggest validation checks
+- review repository structure
+
+All suggested changes were manually inspected before acceptance.
+
+====================================================================
+
+Three important moments
+
+1.
+
+The first implementation treated community scoring and organic filtering as two independent stages.
+
+This resulted in communities receiving high coordination scores while simultaneously being classified as non-coordinated.
+
+After reviewing the evaluation criteria, the pipeline was redesigned so that structural evidence contributes directly to the final coordination score, and is_coordinated is derived from that final score.
+
+--------------------------------------------------------------------
+
+2.
+
+Early candidate generation produced an excessive number of mention-based candidate pairs because several highly popular mention targets created almost complete graphs.
+
+After analysing the pair distribution, mention-frequency thresholding was introduced using the development dataset to reduce noisy candidates while preserving informative interaction targets.
+
+--------------------------------------------------------------------
+
+3.
+An early review identified inconsistencies in project reproducibility, including missing dependencies, incorrect embedding schema validation, missing entry point and insufficient documentation.
+
+These issues were corrected by:
+- fixing the embedding loader schema
+- updating requirements.txt
+- creating a proper main entry point
+- adding Docker support
+- writing README.md
+- cleaning development artefacts before submission
+
+====================================================================
+
+General note
+
+AI accelerated implementation, debugging and documentation, but all design decisions, threshold selection, validation and final methodology were reviewed manually using statistics from the development dataset. The final implementation reflects iterative refinement rather than accepting AI-generated suggestions without verification.
