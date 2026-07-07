@@ -6,9 +6,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-POSTS_INPUT_FILE = "posts.jsonl"
-ACCOUNTS_INPUT_FILE = "accounts.jsonl"
-EMBEDDINGS_INPUT_FILE = "embeddings.parquet"
+POSTS_INPUT_FILE = "eval/posts.jsonl"
+ACCOUNTS_INPUT_FILE = "eval/accounts.jsonl"
+EMBEDDINGS_INPUT_FILE = "eval/embeddings.parquet"
 
 INTERACTION_ORDER: tuple[str, ...] = (
     "thread_id",
